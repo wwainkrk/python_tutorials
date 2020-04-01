@@ -102,10 +102,10 @@ if __name__ == "__main__":
 
     print(lst)
 
-    lst.find('a')
-    lst.find('Z')
+    print(lst.find('a'))
+    print(lst.find('Z'))
 
-    print(lst.reverse())
+    lst.reverse()
     print(lst)
 
     lst.remove('the')
