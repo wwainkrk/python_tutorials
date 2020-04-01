@@ -30,7 +30,7 @@ class SinglyLinkedList:
 
     def prepend(self, data):
         """
-        Insert a new element at the end of the list.
+        Insert a new element at the beginning of the list.
         """
         self.head = ListNode(data=data, next=self.head)
 
