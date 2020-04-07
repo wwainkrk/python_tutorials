@@ -29,17 +29,28 @@ Most important condition: List has to be SORTED before function execution
 """
 
 
-def find_index(elements, value):
-    left, right = 0, len(elements) - 1
-    middle = (left + right) // 2                                                # integer division
+def find_index(elements, value, key):
+    left = 0
+    right = len(elements) - 1
 
-    if elements(middle) == value:                                               # conditions for minimize range
-        return middle
-    elif elements(middle) < value:
-        left = middle + 1
-    elif elements(middle) > value:
-        right = middle - 1
+    while left <= right:
+        middle = (left + right) // 2                                                # integer division
+        middle_element = key(elements[middle])
+
+        if middle_element == value:                                               # conditions for minimize range
+            return middle
+
+        if middle_element < value:
+            left = middle + 1
+        elif middle_element > value:
+            right = middle - 1
 
 
+if __name__ == "__main__":
+    fruits = ["orange", "plum", "watermelon", "apple"]
+    fruits.sort(key=len)
 
+    print(fruits)
 
+    print(find_index(fruits, key=len, value=4))
+    print(fruits[find_index(fruits, value=10, key=len)])
