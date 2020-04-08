@@ -25,8 +25,12 @@ def find_index(elements, value):
 """
 
 """
-Most important condition: List has to be SORTED before function execution
+    Most important condition: List has to be SORTED before function execution
 """
+
+
+def identity(element):
+    return element
 
 
 def find_index(elements, value, key):
@@ -44,6 +48,15 @@ def find_index(elements, value, key):
             left = middle + 1
         elif middle_element > value:
             right = middle - 1
+
+
+def contains(elements, value, key=identity):
+    return find_index(elements, value, key) is not None
+
+
+def find(elements, value, key=identity):
+    index = find_index(elements, value, key)
+    return None if index is None else elements[index]
 
 
 if __name__ == "__main__":
