@@ -27,7 +27,7 @@ import random as rnd
 import matplotlib.pyplot as plt
 
 n = int(input("How many moves do you want? "))       # we make declaration how many steps we will do
-x = y = 0          # initianization of coordinates
+x = y = 0          # initialization of coordinates
 
 lx = [x]
 ly = [y]
@@ -42,9 +42,15 @@ for i in range(0, n):
     lx.append(x)
     ly.append(y)
 
-#print(lx, ly)
-plt.plot(lx, ly)
-plt.show()
-
 s = np.fabs(np.sqrt(x**2 + y**2))
-print(f"Shift vector: {s.round(2)}")
+# print(f"Shift vector: {s.round(2)}")
+
+# print(lx, ly)
+
+plt.plot(lx, ly, 'o--', color='orange', linewidth=2, alpha=0.5)
+plt.legend([f"Data: x, y\nShift vector = {s.round(3)}"], loc = "upper left")
+plt.xlabel("lx")
+plt.ylabel("ly")
+plt.title("Brown moves")
+plt.grid(True)
+plt.show()
