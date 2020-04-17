@@ -29,8 +29,13 @@ import matplotlib.pyplot as plt
 n = int(input("How many moves do you want? "))       # we make declaration how many steps we will do
 x = y = 0          # initialization of coordinates
 
+# lists for moves
 lx = [x]
 ly = [y]
+
+# lists for shift vector on graph
+lsx = [x]
+lsy = [y]
 
 for i in range(0, n):
     rad = float(rnd.randint(0, 360)) * np.pi / 180  # we switched angle to the radians
@@ -42,15 +47,18 @@ for i in range(0, n):
     lx.append(x)
     ly.append(y)
 
+lsx.append(x)
+lsy.append(y)
 s = np.fabs(np.sqrt(x**2 + y**2))
 # print(f"Shift vector: {s.round(2)}")
 
 # print(lx, ly)
 
-plt.plot(lx, ly, 'o--', color='orange', linewidth=2, alpha=0.5)
-plt.legend([f"Data: x, y\nShift vector = {s.round(3)}"], loc = "upper left")
-plt.xlabel("lx")
-plt.ylabel("ly")
+plt.plot(lx, ly, 'o--', color='orange', linewidth=2, alpha=0.5)                # graph changing data
+plt.plot(lsx, lsy, 'b')                                                        # graph shift vector
+plt.legend(["Data: x, y", f"Shift vector = {s.round(3)}"], loc="upper left")
+plt.xlabel("x")
+plt.ylabel("y")
 plt.title("Brown moves")
 plt.grid(True)
 plt.show()
