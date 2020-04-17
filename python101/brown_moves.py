@@ -24,9 +24,13 @@ we calculate the final shift vector using the formula:
 
 import numpy as np
 import random as rnd
+import matplotlib.pyplot as plt
 
 n = int(input("How many moves do you want? "))       # we make declaration how many steps we will do
-x = y = 0                                           # initianization of coordinates
+x = y = 0          # initianization of coordinates
+
+lx = [x]
+ly = [y]
 
 for i in range(0, n):
     rad = float(rnd.randint(0, 360)) * np.pi / 180  # we switched angle to the radians
@@ -34,7 +38,13 @@ for i in range(0, n):
     # According our rules we take r = 1, so:
     x = x + np.cos(rad)
     y = y + np.sin(rad)
-    print(x, y)
+    # print(x, y)
+    lx.append(x)
+    ly.append(y)
 
-s = np.sqrt(x**2 + y**2)
+#print(lx, ly)
+plt.plot(lx, ly)
+plt.show()
+
+s = np.fabs(np.sqrt(x**2 + y**2))
 print(f"Shift vector: {s.round(2)}")
