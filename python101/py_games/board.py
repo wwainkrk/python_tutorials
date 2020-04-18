@@ -1,6 +1,4 @@
 import pygame
-import pygame.locals
-import time
 
 
 class Board(object):
@@ -31,8 +29,3 @@ class Board(object):
             # Only here the actual drawing takes place
             # Before, we only decided what and how to draw
             pygame.display.update()
-
-
-board = Board(600, 400)
-board.draw()
-time.sleep(5)
