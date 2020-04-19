@@ -42,12 +42,14 @@ class Ball(Drawable):
         """
         self.x_speed *= -1
 
-    def move(self, board):
+    def move(self, board, *args):                                           # args as 2 rackets
         """
         Move a ball by speed vector
         """
         self.rect.x += self.x_speed
         self.rect.y += self.y_speed
+
+        # Ball has to recognize where are the borders of surface
 
         if self.rect.x < 0 or (self.rect.x + self.width) > board.surface.get_width():
             self.bounce_x()
@@ -55,6 +57,9 @@ class Ball(Drawable):
         if self.rect.y < 0 or (self.rect.y + self.height) > board.surface.get_height():
             self.bounce_y()
 
+        for racket in args:
+            if self.rect.colliderect(racket.rect):                          # Collision of rackets and ball
+                self.bounce_y()
 
     def reset(self):
         """
@@ -62,3 +67,22 @@ class Ball(Drawable):
         """
         self.rect.move(self.start_x, self.start_y)
         self.bounce_y()
+
+
+class Racket(Drawable):
+    """
+    Racket, moves only on x axis with speed limit
+    """
+    def __init__(self, width, height, x, y, color=(0, 255, 0), max_speed=10):
+        super(Racket, self).__init__(width, height, x, y, color)
+        self.max_speed = max_speed
+        self.surface.fill(color)
+
+    def move(self, x):
+        """
+        Move racket to desired place
+        """
+        delta = x - self.rect.x
+        if abs(delta) > self.max_speed:
+            delta = self.max_speed if delta > 0 else -self.max_speed
+        self.rect.x += delta
