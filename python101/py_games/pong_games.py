@@ -35,7 +35,7 @@ class PongGames(object):
         """
         while not self.handle_events():
             # Work in loop until we receive a quit signal
-            self.ball.move()
+            self.ball.move(self.board)
             self.board.draw(
                 self.ball
             )                               # Using a method on object from imported module

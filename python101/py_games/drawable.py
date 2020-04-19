@@ -42,12 +42,19 @@ class Ball(Drawable):
         """
         self.x_speed *= -1
 
-    def move(self):
+    def move(self, board):
         """
         Move a ball by speed vector
         """
         self.rect.x += self.x_speed
         self.rect.y += self.y_speed
+
+        if self.rect.x < 0 or (self.rect.x + self.width) > board.surface.get_width():
+            self.bounce_x()
+
+        if self.rect.y < 0 or (self.rect.y + self.height) > board.surface.get_height():
+            self.bounce_y()
+
 
     def reset(self):
         """
