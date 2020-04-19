@@ -1,4 +1,5 @@
 from board import *
+from drawable import *
 import pygame
 import pygame.locals
 
@@ -15,6 +16,7 @@ class PongGames(object):
 
         # We use a clock to control the drawing speed game frames
         self.clock = pygame.time.Clock()
+        self.ball = Ball(20, 20, width/2, height/2)                 # Add ball object in game board
 
     def handle_events(self):
         """
@@ -32,8 +34,11 @@ class PongGames(object):
         Main loop of program
         """
         while not self.handle_events():
-            # Work in loop until we received a quit signal
-            self.board.draw()                               # Using a method on object from imported module
+            # Work in loop until we receive a quit signal
+            self.ball.move()
+            self.board.draw(
+                self.ball
+            )                               # Using a method on object from imported module
             self.clock.tick(30)
 
 
