@@ -23,13 +23,13 @@ cur.execute("""
 
 # Execute more than one command - all SQL script
 cur.executescript("""
-    DROP TABLE IF EXISTS student;
-    CREATE TABLE IF NOT EXISTS uczen(
+    DROP TABLE IF EXISTS students;
+    CREATE TABLE IF NOT EXISTS students(
         id INTEGER PRIMARY KEY ASC,
         first_name varchar(250) NOT NULL,
         last_name varchar(250) NOT NULL,
         class_id INTEGER NOT NULL,
-        FOREIGN KEY(klasa_id) REFERENCES klasa(id)
+        FOREIGN KEY(class_id) REFERENCES class(id)
     )""")
 
 # We put some data in table
@@ -39,6 +39,16 @@ cur.execute("INSERT INTO class (name, profile) VALUES(?, ?)", ('1B', 'math'))
 # We take a class which has specific name
 cur.execute("SELECT * FROM class WHERE name = ?", ('1A',))
 class_id = cur.fetchone()[0]
-print(class_id)
+#print(class_id)
 
+students = (
+    ('Tomasz', 'Nowak', class_id),
+    ('Jan', 'Kos', class_id),
+    ('Piotr', 'Kowalski', class_id)
+)
 
+# We put some data into second table
+cur.executemany("INSERT INTO students (first_name, last_name, class_id) VALUES(?, ?, ?)", students)
+
+# confirm changes in database
+con.commit()
