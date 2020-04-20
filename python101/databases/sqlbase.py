@@ -10,3 +10,24 @@ con.row_factory = sqlite3.Row
 
 # Creating a cursor object
 cur = con.cursor()
+
+# Create a tables
+cur.execute("DROP TABLE IF EXISTS klasa")
+
+cur.execute("""
+        CREATE TABLE IF NOT EXISTS class(
+            id INTEGER PRIMARY KEY ASC,
+            name varchar(250) NOT NULL,
+            profile varchar(250) DEFAULT ''
+        )""")
+
+# Execute more than one command - all SQL script
+cur.executescript("""
+    DROP TABLE IF EXISTS student;
+    CREATE TABLE IF NOT EXISTS uczen(
+        id INTEGER PRIMARY KEY ASC,
+        first_name varchar(250) NOT NULL,
+        last_name varchar(250) NOT NULL,
+        class_id INTEGER NOT NULL,
+        FOREIGN KEY(klasa_id) REFERENCES klasa(id)
+    )""")
