@@ -31,3 +31,14 @@ cur.executescript("""
         class_id INTEGER NOT NULL,
         FOREIGN KEY(klasa_id) REFERENCES klasa(id)
     )""")
+
+# We put some data in table
+cur.execute("INSERT INTO class (name, profile) VALUES(?, ?)", ('1A', 'humanistic'))
+cur.execute("INSERT INTO class (name, profile) VALUES(?, ?)", ('1B', 'math'))
+
+# We take a class which has specific name
+cur.execute("SELECT * FROM class WHERE name = ?", ('1A',))
+class_id = cur.fetchone()[0]
+print(class_id)
+
+
