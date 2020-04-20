@@ -1,5 +1,5 @@
 import sqlite3
-
+from csvbase import *
 
 # Creating a simply connection with database which will be hold on device/disk
 # or in memory (:memory:)
@@ -79,5 +79,20 @@ cur.execute("UPDATE students SET class_id=? WHERE id=?", (class_id, 2))
 
 # Delete a record from student table with id = 3 / Delete a student with index = 3
 cur.execute("DELETE FROM students WHERE id=?", (3,))
+
+read_data()
+
+students_csv = read_csv("students.csv")
+cur.executescript("""
+    DROP TABLE IF EXISTS students;
+    CREATE TABLE IF NOT EXISTS students(
+        id INTEGER PRIMARY KEY ASC,
+        first_name varchar(250) NOT NULL,
+        last_name varchar(250) NOT NULL,
+        class_id INTEGER NOT NULL,
+        FOREIGN KEY(class_id) REFERENCES class(id)
+    );""")
+
+cur.executemany("INSERT INTO students (first_name, last_name, class_id) VALUES (?, ?, ?)", students_csv)
 
 read_data()
