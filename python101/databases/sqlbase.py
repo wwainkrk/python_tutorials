@@ -39,7 +39,7 @@ cur.execute("INSERT INTO class (name, profile) VALUES(?, ?)", ('1B', 'math'))
 con.commit()
 
 # We take a class which has specific name
-cur.execute("SELECT * FROM class WHERE name = ?", ('1A',))
+cur.execute("SELECT id FROM class WHERE name = ?", ('1A',))
 class_id = cur.fetchone()[0]
 #print(class_id)
 
@@ -66,9 +66,18 @@ def read_data():
     students_list = cur.fetchall()
 
     for student in students_list:
+        # We can take value from a list by name column, because we declare row_factory as row, at the beginning
         print(student['id'], student['first_name'], student['last_name'], student['name'])
-    print()
 
 
 read_data()
 
+# Changes in student class with student index = 2
+cur.execute("SELECT id FROM class WHERE name = ?", ('1B',))
+class_id = cur.fetchone()[0]
+cur.execute("UPDATE students SET class_id=? WHERE id=?", (class_id, 2))
+
+# Delete a record from student table with id = 3 / Delete a student with index = 3
+cur.execute("DELETE FROM students WHERE id=?", (3,))
+
+read_data()
