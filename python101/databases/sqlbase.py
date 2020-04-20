@@ -36,6 +36,8 @@ cur.executescript("""
 cur.execute("INSERT INTO class (name, profile) VALUES(?, ?)", ('1A', 'humanistic'))
 cur.execute("INSERT INTO class (name, profile) VALUES(?, ?)", ('1B', 'math'))
 
+con.commit()
+
 # We take a class which has specific name
 cur.execute("SELECT * FROM class WHERE name = ?", ('1A',))
 class_id = cur.fetchone()[0]
@@ -52,3 +54,21 @@ cur.executemany("INSERT INTO students (first_name, last_name, class_id) VALUES(?
 
 # confirm changes in database
 con.commit()
+
+
+# Download data from database
+def read_data():
+    """
+    We download data from database
+    """
+    cur.execute("SELECT students.id, first_name, last_name, name FROM students, "
+                "class WHERE students.class_id = class.id")
+    students_list = cur.fetchall()
+
+    for student in students_list:
+        print(student['id'], student['first_name'], student['last_name'], student['name'])
+    print()
+
+
+read_data()
+
