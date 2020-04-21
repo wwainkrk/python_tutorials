@@ -19,11 +19,24 @@ database = create_engine("sqlite:///test.db")
 # Main/base class for database
 DatabaseModel = declarative_base()
 
-database.connect()                          # Make a connection with our new base
-
 # Create a class for each table
 # ORM use class to describe fields and relationships between classes(tables)
 
 
 class Class(DatabaseModel):
-    name = CharFiel
+    __tablename__ = "class"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False)
+    profile = Column(String(100), default="")
+    students = relationship("Student", backref="class")
+
+
+class Student(DatabaseModel):
+    __tablename__ = "student"
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String(100), nullable=False)
+    last_name = Column(String(100), nullable=False)
+    class_id = Column(Integer, ForeignKey("class.id"))
+
+
+DatabaseModel.metadata.create_all(database)
