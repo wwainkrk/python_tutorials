@@ -4,6 +4,7 @@ import os
 from sqlalchemy import Column, ForeignKey, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
+from csvbase import read_csv
 
 # import sqlite3
 # con = sqlite3.connect("test.db")
@@ -84,6 +85,16 @@ inst_stud.class_id = session.query(ClassGroup.id).filter_by(name='1B').scalar() 
 session.delete(session.query(Student).get(3))
 
 read_data()
+
+session.commit()
+# session.close()
+
+# Use a function from imported file
+students_csv = read_csv('students.csv')
+
+# Add record from csv file to database
+for student in students_csv:
+    session.add(Student(first_name=student[0], last_name=student[1], class_id=student[2]))
 
 session.commit()
 session.close()
