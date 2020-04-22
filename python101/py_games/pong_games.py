@@ -1,5 +1,6 @@
 from board import *
 from drawable import *
+from judge import *
 import pygame
 import pygame.locals
 
@@ -16,10 +17,11 @@ class PongGames(object):
 
         # We use a clock to control the drawing speed game frames
         self.clock = pygame.time.Clock()
-        self.ball = Ball(width=20, height=20, x=width/2, y=height/2)                 # Add ball object in game board
+        self.ball = Ball(width=20, height=20, x=width/2, y=height/2)                # Add ball object in game board
         self.player1 = Racket(width=80, height=20, x=width/2 - 40, y=height - 40)           # Racket for player
         self.player2 = Racket(width=80, height=20, x=width/2 - 40, y=20)                    # Racket for opponent
-        self.ai = AI(self.player2, self.ball)                                               # AI for opponent racket
+        self.ai = AI(self.player2, self.ball)                                       # AI for opponent racket
+        self.judge = Judge(self.ball, self.board, self.player2, self.player1)
 
     def handle_events(self):
         """
@@ -47,7 +49,8 @@ class PongGames(object):
             self.board.draw(
                 self.ball,
                 self.player1,
-                self.player2
+                self.player2,
+                self.judge
             )                               # Using a method on object from imported module
             self.ai.move()
             self.clock.tick(30)
