@@ -72,4 +72,18 @@ def read_data():
 
 
 read_data()
+# Close session and save in database all queries
 session.commit()
+
+# Change class for student with id = 2
+inst_stud = session.query(Student).filter_by(id=2).one()                            # Object student
+inst_stud.class_id = session.query(ClassGroup.id).filter_by(name='1B').scalar()     # Student object field
+
+
+# Delete a student with id = 2
+session.delete(session.query(Student).get(3))
+
+read_data()
+
+session.commit()
+session.close()
