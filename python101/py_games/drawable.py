@@ -86,3 +86,16 @@ class Racket(Drawable):
         if abs(delta) > self.max_speed:
             delta = self.max_speed if delta > 0 else -self.max_speed
         self.rect.x += delta
+
+
+class AI(object):
+    """
+    Opponent, his racket control base on ball position
+    """
+    def __init__(self, racket, ball):
+        self.racket = racket
+        self.ball = ball
+
+    def move(self):
+        x = self.ball.rect.centerx
+        self.racket.move(x)
