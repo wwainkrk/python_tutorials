@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QHBoxLayout, QMessageBox
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 
 import sys
@@ -65,10 +66,27 @@ class Calculator(QWidget):
         self.show()
 
         # Connect function with button
-        fin_btn.clicked.connect(self.finish)
+        fin_btn.clicked.connect(self.close)
 
     def finish(self):
         self.close()
+
+    def closeEvent(self, event):
+        """
+        Create additional window to confirm close app
+        """
+        odp = QMessageBox.question(
+            self,
+            "Confirmation",
+            "Are you sure to close app?",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No
+        )
+
+        if odp == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
 
 
 if __name__ == "__main__":
