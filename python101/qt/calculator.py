@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QHBoxLayout
 from PyQt5.QtGui import QIcon
+
 import sys
 # from __future__ import unicode_literals             # Polish characters
 
@@ -62,6 +63,12 @@ class Calculator(QWidget):
         self.setWindowIcon(QIcon("calculator.png"))
         self.setWindowTitle("Simply calculator")
         self.show()
+
+        # Connect function with button
+        fin_btn.clicked.connect(self.finish)
+
+    def finish(self):
+        self.close()
 
 
 if __name__ == "__main__":
