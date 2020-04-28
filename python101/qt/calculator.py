@@ -68,8 +68,8 @@ class Calculator(QWidget):
         # Connect function with button
         fin_btn.clicked.connect(self.close)
 
-    def finish(self):
-        self.close()
+#    def finish(self):
+#        self.close()
 
     def closeEvent(self, event):
         """
@@ -87,6 +87,11 @@ class Calculator(QWidget):
             event.accept()
         else:
             event.ignore()
+
+    # Handling ESC key press
+    def key_press_event(self, e):
+        if e.key() == Qt.Key_Escape:
+            self.close()
 
 
 if __name__ == "__main__":
