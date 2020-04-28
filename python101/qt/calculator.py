@@ -25,18 +25,18 @@ class Calculator(QWidget):
         layout_tab.addWidget(label3, 0, 2)
 
         # add lines to put some number
-        number1_edit = QLineEdit()
-        number2_edit = QLineEdit()
-        result_edit = QLineEdit()
+        self.number1_edit = QLineEdit()
+        self.number2_edit = QLineEdit()
+        self.result_edit = QLineEdit()
 
         # special settings for result edit line
-        result_edit.setReadOnly(True)
-        result_edit.setToolTip("Write <b>numbers</b> and select action")
+        self.result_edit.setReadOnly(True)
+        self.result_edit.setToolTip("Write <b>numbers</b> and select action")
 
         # assign edit labels to the grid layout
-        layout_tab.addWidget(number1_edit, 1, 0)
-        layout_tab.addWidget(number2_edit, 1, 1)
-        layout_tab.addWidget(result_edit, 1, 2)
+        layout_tab.addWidget(self.number1_edit, 1, 0)
+        layout_tab.addWidget(self.number2_edit, 1, 1)
+        layout_tab.addWidget(self.result_edit, 1, 2)
 
         # assign grid layout to window
         self.setLayout(layout_tab)
@@ -68,6 +68,11 @@ class Calculator(QWidget):
         # Connect function with button
         fin_btn.clicked.connect(self.close)
 
+        add_btn.clicked.connect(self.operation)
+        sub_btn.clicked.connect(self.operation)
+        multi_btn.clicked.connect(self.operation)
+        div_btn.clicked.connect(self.operation)
+
 #    def finish(self):
 #        self.close()
 
@@ -92,6 +97,28 @@ class Calculator(QWidget):
     def key_press_event(self, e):
         if e.key() == Qt.Key_Escape:
             self.close()
+
+    def operation(self):
+        """
+        Funtion for making mathematical operation
+        """
+
+        try:
+            sender = self.sender()
+
+            number1 = float(self.number1_edit.text())
+            number2 = float(self.number2_edit.text())
+            result = ""
+            print(sender.objectName())
+
+            if sender.text() == "&Add":
+                result = number1 + number2
+                print("work")
+
+            self.result_edit.setText(str(result))
+
+        except ValueError:
+            QMessageBox.warning(self, "Error", "Wrong data", QMessageBox.Ok)
 
 
 if __name__ == "__main__":
