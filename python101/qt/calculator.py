@@ -113,7 +113,15 @@ class Calculator(QWidget):
 
             if sender.text() == "&Add":
                 result = number1 + number2
-                print("work")
+            elif sender.text() == "&Substract":
+                result = number1 - number2
+            elif sender.text() == "&Multiple":
+                result = number1 * number2
+            elif sender.text() == "&Divide":
+                try:
+                    result = round(number1 / number2, 9)
+                except ZeroDivisionError:
+                    QMessageBox.critical(self, "Error !", "You cannot divide by zero !")
 
             self.result_edit.setText(str(result))
 
