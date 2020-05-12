@@ -8,7 +8,7 @@ class Widgets(QWidget, UIWidget):
 
     def __init__(self, parent=None):
         super(Widgets, self).__init__(parent)
-        self.setup_UI(self)                     # create user interface
+        self.setup_ui(self)                     # create user interface
 
 
 if __name__ == "__main__":
@@ -16,8 +16,8 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
     window = Widgets()
-    window.setWindowTitle("Widgets App")
     window.show()
-
-
-    sys.exit(app.exec_())
+    try:
+        sys.exit(app.exec_())
+    except Exception:
+        print("Exception")
