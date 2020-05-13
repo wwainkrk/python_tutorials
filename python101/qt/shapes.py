@@ -23,22 +23,22 @@ class Shape(QWidget):
 
     def __init__(self, parent, shape=Shapes.Rect):
         super(Shape, self).__init__(parent)
-        print("init Shape")
+        # print("init Shape")
         self.shape = shape                          # shape which will be draw
 
-        # colors of pen and which will be inside surface
+        # colors of pen which will be inside surface
         self.colorP = QColor(0, 0, 0)
         self.colorB = QColor(255, 255, 255)
 
     def paintEvent(self, e):
         qp = QPainter()
         qp.begin(self)
-        print("paintEvent")
+        # print("paintEvent")
         self.draw_figures(e, qp)                # function to build shape in Painter
         qp.end()
 
     def draw_figures(self, e, qp):
-        print("draw_figures")
+        # print("draw_figures")
         qp.setPen(self.colorP)
         qp.setBrush(self.colorB)
         qp.setRenderHint(QPainter.Antialiasing) # more 'smoother' shapes
@@ -54,10 +54,10 @@ class Shape(QWidget):
         else:
             qp.drawRect(self.rect)
 
-    def size_hint(self):
-        return QSize(150, 150)
+    def sizeHint(self):
+        return QSize(102, 102)
 
-    def min_size_hint(self):
+    def minSizeHint(self):
         return QSize(102, 102)
 
     def set_shape(self, shape):
