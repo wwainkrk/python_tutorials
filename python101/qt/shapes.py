@@ -60,8 +60,8 @@ class Shape(QWidget):
     def minSizeHint(self):
         return QSize(102, 102)
 
-    def set_shape(self, shape):
-        self.shape = shape
+    def setShape(self, value):
+        self.shape = Shapes(value)
         self.update()
 
     def set_colorB(self, r=0, g=0, b=0):

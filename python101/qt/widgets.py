@@ -10,6 +10,24 @@ class Widgets(QWidget, UIWidget):
         super(Widgets, self).__init__(parent)
         self.setup_ui(self)                     # create user interface
 
+        self.group_checkbtn.buttonClicked[int].connect(self.set_shape)
+        self.shape_check.clicked.connect(self.activate_shape)
+
+    def set_shape(self, value):
+        # print("set_shape")
+        self.active_shape.setShape(value)
+
+    def activate_shape(self, value):
+        # print("activate_shape")
+        if value:
+            self.active_shape = self.shape1
+            self.sender().setText("<=")
+        else:
+            self.active_shape = self.shape2
+            self.sender().setText("=>")
+
+        self.group_checkbtn.buttons()[self.active_shape.shape.value].setChecked(True)
+
 
 if __name__ == "__main__":
     import sys
