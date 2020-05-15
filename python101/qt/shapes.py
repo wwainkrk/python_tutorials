@@ -28,7 +28,7 @@ class Shape(QWidget):
 
         # colors of pen which will be inside surface
         self.colorP = QColor(0, 0, 0)
-        self.colorB = QColor(255, 255, 255)
+        self.colorI = QColor(255, 255, 255)
 
     def paintEvent(self, e):
         qp = QPainter()
@@ -40,7 +40,7 @@ class Shape(QWidget):
     def draw_figures(self, e, qp):
         # print("draw_figures")
         qp.setPen(self.colorP)
-        qp.setBrush(self.colorB)
+        qp.setBrush(self.colorI)
         qp.setRenderHint(QPainter.Antialiasing) # more 'smoother' shapes
 
         if self.shape == Shapes.Rect:
@@ -64,6 +64,6 @@ class Shape(QWidget):
         self.shape = Shapes(value)          # value as id in Enum class - Shapes
         self.update()
 
-    def set_colorB(self, r=0, g=0, b=0):
-        self.colorB = QColor(r, g, b)       # arguments provided as RGB
+    def set_colorI(self, r=0, g=0, b=0):
+        self.colorI = QColor(r, g, b)       # arguments provided as RGB
         self.update()
