@@ -39,7 +39,7 @@ class UIWidget(object):
         systemh.addWidget(self.shape2)
 
         self.setLayout(systemh)
-        self.setFixedSize(systemh.sizeHint())
+        self.setFixedSize(systemh.sizeHint())               # automatically window size
         self.setWindowTitle("Widgets App")
 
 

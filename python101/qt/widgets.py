@@ -10,6 +10,7 @@ class Widgets(QWidget, UIWidget):
         super(Widgets, self).__init__(parent)
         self.setup_ui(self)                     # create user interface
 
+        # Signals & slots
         self.group_checkbtn.buttonClicked[int].connect(self.set_shape)
         self.shape_check.clicked.connect(self.activate_shape)
 
@@ -20,13 +21,13 @@ class Widgets(QWidget, UIWidget):
     def activate_shape(self, value):
         # print("activate_shape")
         if value:
-            self.active_shape = self.shape1
+            self.active_shape = self.shape1                     # shape on the left side
             self.sender().setText("<=")
         else:
-            self.active_shape = self.shape2
+            self.active_shape = self.shape2                     # shape on the right side
             self.sender().setText("=>")
 
-        self.group_checkbtn.buttons()[self.active_shape.shape.value].setChecked(True)
+        self.group_checkbtn.buttons()[self.active_shape.shape.value].setChecked(True)   # setter for correct checkbox
 
 
 if __name__ == "__main__":

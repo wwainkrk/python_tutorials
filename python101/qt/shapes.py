@@ -61,7 +61,7 @@ class Shape(QWidget):
         return QSize(102, 102)
 
     def setShape(self, value):
-        self.shape = Shapes(value)
+        self.shape = Shapes(value)          # value as id in Enum class - Shapes
         self.update()
 
     def set_colorB(self, r=0, g=0, b=0):
