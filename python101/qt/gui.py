@@ -1,5 +1,8 @@
-# from PyQt5.QtCore import QRect
-from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QCheckBox, QButtonGroup
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout
+from PyQt5.QtWidgets import QCheckBox, QButtonGroup
+from PyQt5.QtWidgets import QSlider, QLCDNumber, QSplitter
+from PyQt5.QtWidgets import QRadioButton, QGroupBox
 from shapes import Shape, Shapes
 
 
@@ -33,13 +36,46 @@ class UIWidget(object):
 
         # self.resize(150, 150)
         # print("setup_ui")
-        systemh = QHBoxLayout()
-        systemh.addWidget(self.shape1)
-        systemh.addLayout(systemv)
-        systemh.addWidget(self.shape2)
+        # Horizontal layout with shapes and CheckBox group
+        systemh_1 = QHBoxLayout()
+        systemh_1.addWidget(self.shape1)
+        systemh_1.addLayout(systemv)
+        systemh_1.addWidget(self.shape2)
 
-        self.setLayout(systemh)
-        self.setFixedSize(systemh.sizeHint())               # automatically window size
+        # QSlider and QLCDNumber together in QSPlitter in horizontal layout
+        self.slider = QSlider(Qt.Horizontal)
+        self.slider.setMinimum(0)
+        self.slider.setMaximum(255)
+
+        self.lcd = QLCDNumber()
+        self.lcd.setSegmentStyle(QLCDNumber.Flat)
+
+        systemh_2 = QSplitter(Qt.Horizontal)
+        systemh_2.addWidget(self.slider)
+        systemh_2.addWidget(self.lcd)
+        systemh_2.setSizes((125, 75))
+
+        # QRadioButtion group
+        self.group_radiobtn = QGroupBox('RGB Options')                   # Groupbox as separated part with checkbox and radiobuttons
+        self.radio_layout = QHBoxLayout()
+        for v in ('R', 'G', 'B'):
+            radio_btn = QRadioButton(v)
+            self.radio_layout.addWidget(radio_btn)
+        self.group_radiobtn.setObjectName('Radio')
+        self.group_radiobtn.setLayout(self.radio_layout)
+        self.group_radiobtn.setCheckable(True)
+
+        systemh_3 = QHBoxLayout()
+        systemh_3.addWidget(self.group_radiobtn)
+
+        # Main window layout with all parts
+        window_layout = QVBoxLayout()
+        window_layout.addLayout(systemh_1)
+        window_layout.addWidget(systemh_2)
+        window_layout.addLayout(systemh_3)
+
+        self.setLayout(window_layout)
+        self.setFixedSize(window_layout.sizeHint())               # automatically window size
         self.setWindowTitle("Widgets App")
 
 
