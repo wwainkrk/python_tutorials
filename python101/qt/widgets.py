@@ -24,6 +24,11 @@ class Widgets(QWidget, UIWidget):
             self.radio_layout.itemAt(i).widget().toggled.connect(self.set_channel_radiobtn) # toggled = changed
         self.slider.valueChanged.connect(self.change_color)                                  # slider changes
 
+        # Signal/slots mechanism for ComboBox and SpinBox section
+        self.group_radiobtn.clicked.connect(self.set_state)
+        self.combolist_rgb.activated[str].connect(self.set_channel_combobox)
+        self.spinvalue.valueChanged[int].connect(self.change_color)
+
     def set_channel_radiobtn(self, value):
         """
         Reset channels with color and put selected one
@@ -64,6 +69,23 @@ class Widgets(QWidget, UIWidget):
             self.sender().setText("=>")
 
         self.group_checkbtn.buttons()[self.active_shape.shape.value].setChecked(True)   # setter for correct checkbox
+
+    def set_state(self, value):
+        """
+        Function for activate/deactivate section with different way to set color channel and value
+        """
+        if value:
+            self.combolist_rgb.setEnabled(False)
+            self.spinvalue.setEnabled(False)
+        else:
+            self.combolist_rgb.setEnabled(True)
+            self.spinvalue.setEnabled(True)
+            self.channel = set()
+            self.channel.add(self.combolist_rgb.currentText())
+
+    def set_channel_combobox(self, value):
+        self.channel = set()
+        self.channel.add(value)
 
 
 if __name__ == "__main__":
