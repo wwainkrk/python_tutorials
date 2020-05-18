@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QCheckBox, QButtonGroup
 from PyQt5.QtWidgets import QSlider, QLCDNumber, QSplitter
 from PyQt5.QtWidgets import QRadioButton, QGroupBox
 from PyQt5.QtWidgets import QComboBox, QSpinBox
+from PyQt5.QtWidgets import QPushButton
 from shapes import Shape, Shapes
 
 
@@ -88,11 +89,28 @@ class UIWidget(object):
         systemh_3.insertSpacing(1, 25)                  # splitting two layouts
         systemh_3.addLayout(combo_vlayout)
 
+        # PushButton group
+        system_pushbtn = QHBoxLayout()
+        self.group_pushbtn = QButtonGroup()
+        self.group_pushbtn.setExclusive(True)
+        for v in ('R', 'G', 'B'):
+            push_btn = QPushButton(v)
+            push_btn.setCheckable(True)
+            self.group_pushbtn.addButton(push_btn)
+            system_pushbtn.addWidget(push_btn)
+        # buttons into group
+        self.groupbox_push = QGroupBox("RGB Buttons")
+        self.groupbox_push.setLayout(system_pushbtn)
+        self.groupbox_push.setObjectName('Push')
+        self.groupbox_push.setCheckable(True)
+        self.groupbox_push.setChecked(False)
+
         # Main window layout with all parts
         window_layout = QVBoxLayout()
         window_layout.addLayout(systemh_1)
         window_layout.addWidget(systemh_2)
         window_layout.addLayout(systemh_3)
+        window_layout.addWidget(self.groupbox_push)
 
         self.setLayout(window_layout)
         self.setFixedSize(window_layout.sizeHint())               # automatically window size
