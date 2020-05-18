@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout
 from PyQt5.QtWidgets import QCheckBox, QButtonGroup
 from PyQt5.QtWidgets import QSlider, QLCDNumber, QSplitter
 from PyQt5.QtWidgets import QRadioButton, QGroupBox
+from PyQt5.QtWidgets import QComboBox, QSpinBox
 from shapes import Shape, Shapes
 
 
@@ -67,6 +68,25 @@ class UIWidget(object):
 
         systemh_3 = QHBoxLayout()
         systemh_3.addWidget(self.group_radiobtn)
+
+        # ComboBox list and SpinBox for color channel value
+        self.combolist_rgb = QComboBox(self)
+        for v in ('R', 'G', 'B'):
+            self.combolist_rgb.addItem(v)
+        self.combolist_rgb.setEnabled(False)
+        self.spinvalue = QSpinBox(self)
+        self.spinvalue.setMinimum(0)
+        self.spinvalue.setMaximum(255)
+        self.spinvalue.setEnabled(False)
+
+        # VBox for Combo%Spin widgets
+        combo_vlayout = QVBoxLayout()
+        combo_vlayout.addWidget(self.combolist_rgb)
+        combo_vlayout.addWidget(self.spinvalue)
+
+        # Add new layout to existing
+        systemh_3.insertSpacing(1, 25)                  # splitting two layouts
+        systemh_3.addLayout(combo_vlayout)
 
         # Main window layout with all parts
         window_layout = QVBoxLayout()
