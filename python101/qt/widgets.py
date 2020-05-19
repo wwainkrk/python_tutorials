@@ -29,6 +29,11 @@ class Widgets(QWidget, UIWidget):
         self.combolist_rgb.activated[str].connect(self.set_channel_combobox)
         self.spinvalue.valueChanged[int].connect(self.change_color)
 
+        # Signal/slots mechanism for PushButton group and setting new function to change color channel by PushButton
+        for btn in self.group_pushbtn.buttons():
+            btn.clicked[bool].connect(self.set_channel_pushbtn)
+        self.groupbox_push.clicked.connect(self.set_state)
+
     def set_channel_radiobtn(self, value):
         """
         Reset channels with color and put selected one
@@ -86,6 +91,12 @@ class Widgets(QWidget, UIWidget):
     def set_channel_combobox(self, value):
         self.channel = set()
         self.channel.add(value)
+
+    def set_channel_pushbtn(self, value):
+        if value:
+            self.channel.add(self.sender().text())
+        elif value in self.channel:
+            self.channel.remove(self.sender().text())
 
 
 if __name__ == "__main__":
