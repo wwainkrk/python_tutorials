@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post
-from .forms import EmailPostForm
+from .models import Post, Comment
+from .forms import EmailPostForm, CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 
@@ -35,8 +35,27 @@ def post_detail(request, day, month, year, post):
                              publish__month=month,
                              publish__year=year)
 
+    # We are taking all comments with active status as QuerySet
+    comments = post.comments.filter(active=True)
+
+    if request.method == "POST":
+        # We are filling comment with request data
+        comment_form = CommentForm(data=request.POST)
+
+        if comment_form.is_valid():
+            # We create new comment, False flag mean that we are not save yet new object
+            new_comment = comment_form.save(commit=False)
+            # We sign new comment to current post
+            new_comment.post = post
+            # Saving new comment in database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+
     return render(request, 'blog/post/detail.html', {
-        'post': post
+        'post': post,
+        'comments': comments,
+        'comment_form': comment_form
     })
 
 
