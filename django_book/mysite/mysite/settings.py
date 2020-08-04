@@ -119,3 +119,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Settings for sending email with SMTP server
+'''
+EMAIL_HOST = smtp
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'warsaw0902@gmail.com'
+EMAIL_HOST_PASSWORD = *** # I won't push information this on repository
+EMAIL_USE_TLS = True
+'''
+# We set only one of this setting to test sending emails
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
