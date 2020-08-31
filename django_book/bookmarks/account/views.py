@@ -7,23 +7,23 @@ from django.http import HttpResponse
 
 def user_login(request):
     if request.method == 'POST':
-        form = LoginForm()
+        form = LoginForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             # Check if User is active in database, return User object
             user = authenticate(username=cd['username'], password=cd['password'])
 
-        if user is not None:
-            if user.is_active:
-                login(request, user)        # Add User to current session
-                return HttpResponse('Authentication successfully')
+            if user is not None:
+                if user.is_active:
+                    login(request, user)        # Add User to current session
+                    return HttpResponse('Authentication successfully')
+                else:
+                    return HttpResponse('Account is blocked')
             else:
-                return HttpResponse('Account is blocked')
-        else:
-            return HttpResponse('Wrong authentication data')
+                return HttpResponse('Wrong authentication data')
     else:
         form = LoginForm()
 
     return render(request, 'account/login.html', {
-                  'form' : form
+                  'form': form
     })
