@@ -128,3 +128,6 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+
+# We set only one of this setting to test sending emails
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
