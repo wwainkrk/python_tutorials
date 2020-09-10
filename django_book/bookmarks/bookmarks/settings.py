@@ -131,3 +131,7 @@ LOGOUT_URL = 'logout'
 
 # We set only one of this setting to test sending emails
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Media content, static files source
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
