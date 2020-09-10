@@ -3,5 +3,11 @@
 {% block title %}Create account{% endblock %}
 
 {% block content %}
-
+    <h1>Create new account</h1>
+    <p>Fill following form to create new account</p>
+    <form action="." method="post">
+        {{ user_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Create"></p>
+    </form>
 {% endblock %}
