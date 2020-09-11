@@ -19,5 +19,8 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     # Register new user
-    path('register/', views.register, name='register')
+    path('register/', views.register, name='register'),
+
+    # Edit user settings with Profile ModelForm
+    path('edit/', views.edit, name='edit')
 ]
