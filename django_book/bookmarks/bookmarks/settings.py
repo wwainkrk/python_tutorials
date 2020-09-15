@@ -25,7 +25,7 @@ SECRET_KEY = 'lly$n3ag7v@z^u0dzn8vz+e^#jec9f6q(6wn@@b&+7u*=9$e)u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['my-website.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Django-allauth
     'social_django'
 ]
+
+SIDE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -109,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'account.authentication.EmailAuthBackend'
+    'social_core.backends.google.GoogleOAuth2',
 )
 
 # Internationalization
@@ -142,3 +145,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Media content, static files source
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# Social Facebook, Twitter, Google backends
+#SOCIAL_AUTH_FACEBOOK_KEY = ''
+#SOCIAL_AUTH_FACEBOOK_SECRET = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1033789243953-sv96r2us4kk7kt03r85fph9qo7ien6qb.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '6wHCB3XNV-_2yMRSq6qJSgbj'
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
